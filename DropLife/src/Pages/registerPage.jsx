@@ -23,7 +23,7 @@ export const Register = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/tasks");
+    if (isAuthenticated) navigate("/login");
   }, [isAuthenticated]);
 
   return (
