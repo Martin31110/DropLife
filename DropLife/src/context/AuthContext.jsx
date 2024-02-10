@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
   };
-
+//Comprueba la cookie
   useEffect(() => {
     const checkLogin = async () => {
       const cookies = Cookies.get();
