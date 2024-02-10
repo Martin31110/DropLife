@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    profileImage: {
+        type: String, 
+        default: "default_profile_image.jpg" 
+    },
     points:{
         type: Number,
         required: true,
@@ -31,4 +35,4 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
-export default mongoose.model('User', userSchema); 
+export default mongoose.model('User', userSchema);
