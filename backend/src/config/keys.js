@@ -5,7 +5,7 @@ module.exports = {
     },
    
    mongoose: {
-   mongoURI:'mongodb+srv://abrahammonroy:10EemGgyfsGhdtnn@cluster0.3agv59b.mongodb.net/'
+   mongoURI:'mongodb+srv://abrahamonroy77:21R4lzjHzVbWaQwb@cluster0.8sk1a7u.mongodb.net/'
    },
    session:{
       cookieKey:'pelonnabraham'

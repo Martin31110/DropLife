@@ -7,7 +7,7 @@ import {
 } from "../controllers/auth.controlers.js";
 import { validateSchema } from "../middlewares/validator.middleware.js";
 import { loginSchema, registerSchema } from "../schemas/auth.schema.js";
-const passport = require('passport');
+import passport from "passport";
 
 const router = Router();
 
