@@ -8,8 +8,9 @@ import nodemailer from 'nodemailer'
 export const register = async (req, res) => {
     
   try {
-    const {email, password, username, profileImage, points, role } = req.body;
-    
+    const {email, password, username, profileImage, points } = req.body;
+    // console.log(email, password, username, profileImage, points);
+
     const userFound = await User.findOne({email})
     
     if(userFound){
@@ -26,7 +27,7 @@ export const register = async (req, res) => {
         password: passwordHash,
         profileImage, // Aquí incluimos la URL de la imagen de perfil proporcionada por el usuario
         points: 0,
-        role: "user",
+        
     });
 
     // Save the user to the database
@@ -81,7 +82,6 @@ export const register = async (req, res) => {
         email: userSaved.email,
         profileImage: userSaved.profileImage, 
         points: userSaved.points,
-        role: userSaved.role,
         createdAT: userSaved.createdAt,
         updateAT: userSaved.updatedAt
     });
@@ -114,7 +114,6 @@ export const login  = async (req, res) => {
     const token = await createAccessToken({
       id: userFound._id,
       username: userFound.username,
-      role: userFound.role,
     });
 
     res.cookie("token", token, {
@@ -127,7 +126,6 @@ export const login  = async (req, res) => {
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
-      role: userFound.role,
     });
 
 
@@ -166,7 +164,6 @@ export const verifyToken = async (req, res) => {
         id: userFound._id,
         username: userFound.username,
         email: userFound.email,
-        role: userFound.role
       });
     });
  };

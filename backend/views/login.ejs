@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        nav{
+            color:#fff;
+            font-size: 18px;
+            background:rgba(255,255,255,0.2);
+            text-decoration: none;
+            padding:10px;
+            background:salmon;
+padding: 20px 10px;
+        }
+        main,header{
+            max-width:960px;
+            margin:30px auto;
+            padding:0 10px;
+            color: #333;
+        }
+        h1{
+    text-align: center;
+    font-size: 45px;
+}
+nav ul{
+    max-width:960px;
+    margin:0 auto;
+    padding: 0;
+
+}
+nav li{
+list-style-type:none;
+display: inline-block;
+margin: 0 10px 0 0;
+}
+nav a{
+    color: #fff;
+    font-size: 18px;
+    background:rgba(255,255,255,0.2);
+    text-decoration: none;
+    padding: 10px;
+    display:block;
+}
+h2{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+    .google-btn{
+color: #fff;
+text-decoration:none;
+font-size: 18px;
+padding:10px;
+background:#ff5353;
+    }
+    </style>
+</head>
+<body>
+    <nav>
+<ul>
+<li>
+<a href="/api/logout">Logout</a>
+</li>
+<li><a href="/api/login">Login</a></li>
+<li><a href="/">Homepage</a></li>
+</ul>
+    </nav>
+    <header><h1>Login using...</h1></header>
+    <main>
+        <div>
+            <form action="/api/login" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+    
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+    
+                <!-- Puedes agregar campos adicionales según tus necesidades -->
+                
+                <button type="submit">Login with Email</button>
+            </form>
+        </div>
+        <a class="google-btn" href="/auth/google">Google+</a>
+    </main>
+</body>
+</html>

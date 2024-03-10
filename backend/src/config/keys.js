@@ -1,13 +1,14 @@
-module.exports = {
+const keys = {
     google: {
-       clientID:'983236651398-hmb3lqd3h3mtscklnju2qr20kkh1kads.apps.googleusercontent.com',
-       clientSecret:'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'
+       clientID:'4729421982-2us6u5kigbjc5855vjniil75a6jqnq42.apps.googleusercontent.com',
+       clientSecret:'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'
     },
    
    mongoose: {
-   mongoURI:'mongodb+srv://abrahamonroy77:21R4lzjHzVbWaQwb@cluster0.8sk1a7u.mongodb.net/'
+   mongoURI:'mongodb+srv://abrahammonroy:n5L5be7hYInkK5Sq@cluster0.3agv59b.mongodb.net/'
    },
    session:{
       cookieKey:'pelonnabraham'
    }
    }
+export default keys;

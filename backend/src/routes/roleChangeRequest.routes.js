@@ -1,27 +1,27 @@
-import express from 'express';
-import {
-    createRoleChangeRequest,
-    listPendingRoleChangeRequests,
-    approveRoleChangeRequest,
-    rejectRoleChangeRequest,
-    listRoleChangeRequests
-} from '../controllers/roleChangeRequest.controllers.js';
+// import express from 'express';
+// import {
+//     createRoleChangeRequest,
+//     listPendingRoleChangeRequests,
+//     approveRoleChangeRequest,
+//     rejectRoleChangeRequest,
+//     listRoleChangeRequests
+// } from '../controllers/roleChangeRequest.controllers.js';
 
-const router = express.Router();
-
-
-router.post('/role-change-request', createRoleChangeRequest);
+// const router = express.Router();
 
 
-router.get('/role-change-request/pending', listPendingRoleChangeRequests);
+// router.post('/role-change-request', createRoleChangeRequest);
 
 
-router.get('/role-change-request/all-request',listRoleChangeRequests);
+// router.get('/role-change-request/pending', listPendingRoleChangeRequests);
 
 
-router.put('/role-change-request/approve/:requestId', approveRoleChangeRequest);
+// router.get('/role-change-request/all-request',listRoleChangeRequests);
 
 
-router.put('/role-change-request/reject/:requestId', rejectRoleChangeRequest);
+// router.put('/role-change-request/approve/:requestId', approveRoleChangeRequest);
 
-export default router;
+
+// router.put('/role-change-request/reject/:requestId', rejectRoleChangeRequest);
+
+// export default router;
