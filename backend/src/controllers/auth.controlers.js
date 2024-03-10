@@ -3,60 +3,92 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { TOKEN_SECRET } from "../config.js";
 import { createAccessToken } from "../libs/jwt.js";
+import nodemailer from 'nodemailer'
 
 export const register = async (req, res) => {
     
+  try {
+    const {email, password, username, profileImage, points, role } = req.body;
+    
+    const userFound = await User.findOne({email})
+    
+    if(userFound){
+      return res.status(400).json(["The email is already in use"])
+    }  
+
+    // Encrypt the password
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // Create a new user object
+    const newUser = new User({
+        username,
+        email,
+        password: passwordHash,
+        profileImage, // Aquí incluimos la URL de la imagen de perfil proporcionada por el usuario
+        points: 0,
+        role: "user",
+    });
+
+    // Save the user to the database
+    const userSaved = await newUser.save();
+
+    // Generate access token
+    const token = await createAccessToken({ 
+      id: userSaved._id 
+    });
+
+    // Send welcome email
+    // Config the credentials for the message to GMAIL
+    const config = {
+      host: 'smtp.gmail.com', 
+      port: 587,
+      auth: {
+          user: 'droplife426@gmail.com',
+          pass: 'iqvs ylrr cxuw wtxf'
+      }
+    };
+
+    const subject = `Hi ${userSaved.username} Thanks for support us, and register with us, Welcome to this great community`;
+    const text = `You Have ${userSaved.points} Points,  To encourage your participation in water conservation efforts, we will organize various activities where you can earn prizes based on accumulated points. The more points you gather, the better the rewards. Additionally, you will have the opportunity to communicate with us, allowing you the privilege to initiate campaigns independently. You can invite your community to join this ongoing battle for water conservation.`;
+
+    const message = {
+      from: 'droplife426@gmail.com',
+      to: userSaved.email,
+      subject: subject,
+      text: text
+    };
+
+    const transport = nodemailer.createTransport(config);
+
     try {
-        const {email, password, username } = req.body;
-        
-        const userFound = await User.findOne({email})
-        
-        if(userFound)  
-            return res.status(400).json(["The email is already in use"])
-        //Encrypt the password
-            const passwordHash = await bcrypt.hash(password, 10) 
-
-        //Schema fro the DataBase
-        const newUser = new User({
-            username,
-            email,
-            password: passwordHash
-        })
-
-        //Saved the User
-        const userSaved = await newUser.save();
-
-
-        //Call the token Fuction form config js
-        const token = await createAccessToken({ 
-          id: userSaved._id 
-        })
-
-
-        res.cookie('token', token, {
-            httpOnly: process.env.NODE_ENV !== "development",
-            secure: true,
-            sameSite: "none",
-        })
-
-
-
-        res.json({
-            id: userSaved._id,
-            username: userSaved.username,
-            email: userSaved.email,
-            createdAT: userSaved.createdAt,
-            updateAT: userSaved.updatedAt
-        })
-
-
-        //Made the json with tha data
-
-
+        const info = await transport.sendMail(message);
+        console.log(info);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error(error);
     }
 
+    // Set the token in the cookie
+    res.cookie('token', token, {
+        httpOnly: process.env.NODE_ENV !== "development",
+        secure: true,
+        sameSite: "none",
+    })
+
+    // Send the user details in the response
+    res.json({
+        id: userSaved._id,
+        username: userSaved.username,
+        email: userSaved.email,
+        profileImage: userSaved.profileImage, 
+        points: userSaved.points,
+        role: userSaved.role,
+        createdAT: userSaved.createdAt,
+        updateAT: userSaved.updatedAt
+    });
+
+} catch (error) {
+    res.status(500).json({ message: error.message });
+}
 
 };
 
@@ -82,6 +114,7 @@ export const login  = async (req, res) => {
     const token = await createAccessToken({
       id: userFound._id,
       username: userFound.username,
+      role: userFound.role,
     });
 
     res.cookie("token", token, {
@@ -94,7 +127,11 @@ export const login  = async (req, res) => {
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
+      role: userFound.role,
     });
+
+
+
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -122,18 +159,21 @@ export const verifyToken = async (req, res) => {
   
       const userFound = await User.findById(user.id);
       if (!userFound) return res.sendStatus(401);
+
+      console.log("User Info:", userFound); // Agrega este log
   
       return res.json({
         id: userFound._id,
         username: userFound.username,
         email: userFound.email,
+        role: userFound.role
       });
     });
-  };
+ };
 
-//profile
+  //profile
 
-export const profile = async (req, res) => {
+ export const profile = async (req, res) => {
     try {
         const userFound = await User.findById(req.user.id);
 
@@ -154,4 +194,4 @@ export const profile = async (req, res) => {
         console.error(error);
         return res.status(500).json({ error: "Internal Server Error" });
     }
-};
+ };

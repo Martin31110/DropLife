@@ -16,6 +16,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    profileImage: {
+        type: String, 
+        default: "default_profile_image.jpg" 
+    },
+    points:{
+        type: Number,
+        required: true,
+        trim: true
+    },
+    role:{
+        type: String,
+        required: true,
+        trim: true
     }
 }, {
     timestamps: true

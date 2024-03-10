@@ -1,8 +1,11 @@
 import express from 'express'
 import morgan from 'morgan'
-import authRoutes from "./routes/auth.routes.js"
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import authRoutes from "./routes/auth.routes.js"
+import forumRoutes from './routes/forum.routes.js';
+import roleChangeRequestRoutes from './routes/roleChangeRequest.routes.js';
+
 
 const app = express()
 
@@ -15,7 +18,8 @@ app.use(express.json())
 app.use(cookieParser())
 
 //Routes
-app.use('/api', authRoutes)
-
+app.use('/api', authRoutes);
+app.use('/api', forumRoutes);
+app.use('/api', roleChangeRequestRoutes);
 
 export default app;
