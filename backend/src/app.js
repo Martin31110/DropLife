@@ -7,8 +7,7 @@ import forumRoutes from './routes/forum.routes.js';
 // import cookieSession from 'cookie-session';
 import session from 'express-session';
 import passport from 'passport';
-import keys from './config/keys.js'
-
+import keys from './config/cookie.js'
 // import roleChangeRequestRoutes from './routes/roleChangeRequest.routes.js';
 const app = express()
 
@@ -18,21 +17,26 @@ app.use(cors({
 }))
 app.use(morgan('dev'))
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 app.use(
   session({
-    secret: [keys.session.cookieKey], // Cambia esto por una clave secreta más segura
+    secret: [keys.session.cookieKey], 
     resave: false,
     saveUninitialized: true,
   })
 );
-app.set('view engine', 'ejs');
-app.get('/', (req, res) => {
-    res.render('home',{user:req.user});
-});
 //initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+
+app.get('/', (req, res) => {
+    res.render('home',{user:req.user});
+});
+
 //Routes
 app.use('/api', authRoutes);
 app.use('/api', forumRoutes);

@@ -53,14 +53,14 @@
                 <% if (user) { %>
                 <li><a href="/api/logout">Log out</a></li>
                 <% } else { %>
-                <li><a href="/api/login">Login</a></li>
+                <li><a href="/api/loginpage">Login</a></li>
                 <% } %>
                 <li><a href="/">Homepage</a></li>
                 <li><a href="/profile">Profile</a></li>
             </ul>
         </nav>
         <header>
-            <h1>Welcome to your profile, <%= User.username %></h1>
+            <h1>Welcome to your profile, <%= User.username %> </h1>
         </header>
         <main>
             <img src=<%= User.thumbnail %> />

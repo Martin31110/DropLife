@@ -9,7 +9,7 @@ export const register = async (req, res) => {
     
   try {
     const {email, password, username, profileImage, points } = req.body;
-    // console.log(email, password, username, profileImage, points);
+    console.log(email, password, username, profileImage, points);
 
     const userFound = await User.findOne({email})
     

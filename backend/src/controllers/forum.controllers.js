@@ -5,10 +5,10 @@ export const createForum = async (req, res) => {
     const { title, content } = req.body;
 
     try {
-        // Verificar si el usuario tiene el rol de "Influencer"
-        if (req.user.role !== 'Influencer') {
-            return res.status(403).json({ message: 'Permission denied. Only influencers can create forums.' });
-        }
+        // // Verificar si el usuario tiene el rol de "Influencer"
+        // if (req.user.role !== 'Influencer') {
+        //     return res.status(403).json({ message: 'Permission denied. Only influencers can create forums.' });
+        // }
 
         // Crear el foro
         const newForum = new Forum({

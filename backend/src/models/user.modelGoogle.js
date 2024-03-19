@@ -1,3 +1,4 @@
+const mongoose= require('mongoose');
 const userSchemaGoogle = new Schema({
     username: String,
     googleId: String,
@@ -6,4 +7,4 @@ const userSchemaGoogle = new Schema({
     
 const userGoogle = mongoose.model('user',userSchemaGoogle);
     
-moduele.exports = userGoogle;
+module.exports = userGoogle;

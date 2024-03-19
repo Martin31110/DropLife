@@ -10,18 +10,6 @@ import { loginSchema, registerSchema } from "../schemas/auth.schema.js";
 import passport from "passport";
 
 const router = Router();
-
-router.post("/register", validateSchema(registerSchema), register,(req,res)=>{
-  console.log("Renderizando vista de registro...");
-  res.render('register',{user:req.user})
-});
-router.post("/login", validateSchema(loginSchema), login,(req,res)=>{
-  console.log("Renderizando vista de login...");
-
-  res.render('login',{user:req.user})
-});
-router.get("/verify", verifyToken);
-router.post("/logout", verifyToken, logout);
 // auth with google+
 router.get('/google', passport.authenticate('google', {
   scope: ['profile']
@@ -32,5 +20,15 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.redirect('/profile');
 });
 
+router.post("/register", validateSchema(registerSchema), register);
+router.post("/login", validateSchema(loginSchema), login,);
+router.get("/registerpage", (req,res)=>{
+  res.render('register',{user: req.user});
+})
+router.get("/loginpage", (req,res)=>{
+  res.render('login',{user: req.user});
+})
+router.get("/verify", verifyToken);
+router.post("/logout", verifyToken, logout);
 
 export default router;
