@@ -26,7 +26,9 @@ const forumSchema = new mongoose.Schema({
     campaignDescription: {
         type: String,
         required: true
-    }
+    },
+    favorite: { type: Boolean, default: false },
+    reported: { type: Boolean, default: false }
 });
 
 export default mongoose.model('Forum', forumSchema);

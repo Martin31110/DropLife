@@ -4,7 +4,9 @@ import {
     getForums,
     getForumById,
     updateForum,
-    deleteForum
+    deleteForum,
+    favForum,
+    reportForum
 } from "../controllers/forum.controllers.js";
 
 const router = Router();
@@ -15,5 +17,7 @@ router.get("/forums", getForums);
 router.get("/forums/:id", getForumById);
 router.put("/forums/:id", updateForum);
 router.delete("/forums/:id", deleteForum);
+router.put("/forum/:id/favorito", favForum)
+router.put("/forum/:id/report, reportForum", reportForum)
 
 export default router;

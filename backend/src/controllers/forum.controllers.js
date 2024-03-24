@@ -91,3 +91,34 @@ export const getForumById = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// marcar un foro como favorito
+export const favForum = async (req, res) => {
+    try {
+        const forum = await Forum.findById(req.params.id);
+        if (forum) {
+            forum.favorite = true;
+            await forum.save();
+            res.json({ message: 'Foro marcado como favorito' });
+        } else {
+            res.status(404).json({ message: 'Foro no encontrado' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+export const reportForum = async (req, res) => {
+    try {
+        const forum = await Forum.findById(req.params.id);
+        if (forum) {
+            forum.reported = true;
+            await forum.save();
+            res.json({ message: 'Foro reportado' });
+        } else {
+            res.status(404).json({ message: 'Foro no encontrado' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
