@@ -5,11 +5,11 @@ const forumSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        //required: true
     },
     username: {
         type: String,
-        required: true
+        //required: true
     },
     creationDate: {
         type: Date,
@@ -17,15 +17,21 @@ const forumSchema = new mongoose.Schema({
     },
     profileImage: {
         type: String,
-        required: true
+        //required: true
     },
     campaignImage: {
         type: String,
-        required: true
+        //required: true
     },
     campaignDescription: {
         type: String,
-        required: true
+        //required: true
+    },
+    title:{
+        type: String,
+    },
+    content:{
+        type: String,
     },
     favorite: { type: Boolean, default: false },
     reported: { type: Boolean, default: false }

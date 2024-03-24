@@ -2,6 +2,7 @@ import Forum from "../models/forum.model.js";
 
 // Controlador para crear un nuevo foro
 export const createForum = async (req, res) => {
+
     const { title, content } = req.body;
 
     try {
@@ -14,7 +15,7 @@ export const createForum = async (req, res) => {
         const newForum = new Forum({
             title,
             content,
-            author: req.user._id  // Asignar el ID del usuario como autor del foro
+            //author: req.user._id  // Asignar el ID del usuario como autor del foro
         });
 
         const savedForum = await newForum.save();
@@ -66,14 +67,12 @@ export const deleteForum = async (req, res) => {
     try {
         const forum = await Forum.findById(id);
 
-        // Verificar si el usuario es el propietario del foro o es un administrador
-        if (req.user.role === 'Influencer' && forum.author.toString() !== req.user.id) {
-            return res.status(403).json({ message: 'Permission denied. You can only delete your own forums.' });
-        }
-
+        // // Verificar si el usuario es el propietario del foro o es un administrador
+        // if (req.user.role === 'Influencer' && forum.author.toString() !== req.user.id) {
+        //     return res.status(403).json({ message: 'Permission denied. You can only delete your own forums.' });
+        // }
         // Eliminar el foro
-        await forum.remove();
-
+        await forum.remove;
         res.json({ message: 'Forum deleted successfully.' });
     } catch (error) {
         res.status(500).json({ message: error.message });

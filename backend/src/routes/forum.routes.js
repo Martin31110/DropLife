@@ -17,7 +17,7 @@ router.get("/forums", getForums);
 router.get("/forums/:id", getForumById);
 router.put("/forums/:id", updateForum);
 router.delete("/forums/:id", deleteForum);
-router.put("/forum/:id/favorito", favForum)
-router.put("/forum/:id/report, reportForum", reportForum)
+router.put("/forums/:id/favorito", favForum)
+router.put("/forums/:id/report", reportForum)
 
 export default router;
